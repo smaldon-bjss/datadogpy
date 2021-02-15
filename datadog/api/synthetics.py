@@ -209,6 +209,23 @@ class Synthetics(
         if not isinstance(body["public_ids"], list):
             raise ApiError("Parameter 'public_ids' must be a list")
 
-        # API path = "synthetics/tests/delete
+        # API path = "synthetics/tests/delete"
 
         return super(Synthetics, cls)._trigger_action("POST", name="synthetics", id="tests/delete", **body)
+
+    @classmethod
+    def trigger_test_ci(cls, tests, **params):
+        """
+        Trigger one or more synthetic browser tests
+
+        :param tests: list of tests which should be triggered
+        :type tests: list of dictionaries, each dictionary must define basicAuth and public_id
+
+        :returns: Dictionary representing the API's JSON response
+        """
+
+        # API path = "synthetics/tests/trigger/ci"
+
+        path = "tests/trigger/ci"
+
+        return super(Synthetics, cls)._trigger_synthetics_class_action("POST", name=path, params=params, tests=list(tests))
